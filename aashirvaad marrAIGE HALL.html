@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashirvaad Marriage Hall</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Georgia',serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:linear-gradient(135deg,#220000,#5e0000,#150000);
+color:white;
+overflow-x:hidden;
+}
+
+/* HEADER */
+
+.header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:80px;
+display:flex;
+justify-content:center;
+align-items:center;
+background:rgba(0,0,0,.45);
+backdrop-filter:blur(10px);
+color:gold;
+font-size:30px;
+font-weight:bold;
+z-index:1000;
+text-shadow:0 0 15px gold;
+}
+
+/* CURTAIN */
+
+#curtain{
+position:fixed;
+inset:0;
+z-index:9999;
+pointer-events:none;
+}
+
+.left-curtain,
+.right-curtain{
+position:absolute;
+top:0;
+width:50%;
+height:100%;
+background:
+repeating-linear-gradient(
+90deg,
+#4a0000,
+#7b0000 20px,
+#a00000 40px
+);
+box-shadow:inset 0 0 100px rgba(0,0,0,.8);
+}
+
+.left-curtain{
+left:0;
+animation:leftOpen 3s forwards;
+animation-delay:.5s;
+}
+
+.right-curtain{
+right:0;
+animation:rightOpen 3s forwards;
+animation-delay:.5s;
+}
+
+@keyframes leftOpen{
+100%{transform:translateX(-100%);}
+}
+
+@keyframes rightOpen{
+100%{transform:translateX(100%);}
+}
+
+/* NAV BUTTONS */
+
+.top-buttons{
+margin-top:100px;
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+padding:20px;
+}
+
+.top-buttons button{
+background:linear-gradient(45deg,#8b0000,#ffd700);
+border:none;
+padding:14px 28px;
+border-radius:40px;
+color:white;
+font-weight:bold;
+cursor:pointer;
+font-size:16px;
+box-shadow:0 0 15px rgba(255,215,0,.5);
+transition:.4s;
+}
+
+.top-buttons button:hover{
+transform:translateY(-5px);
+box-shadow:0 0 30px gold;
+}
+
+/* HOME */
+
+#homePage{
+min-height:70vh;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:40px;
+flex-wrap:wrap;
+padding:40px;
+}
+
+.card{
+width:300px;
+height:350px;
+background:
+linear-gradient(
+135deg,
+rgba(255,215,0,.15),
+rgba(139,0,0,.35)
+);
+
+border:2px solid gold;
+border-radius:25px;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+position:relative;
+
+cursor:pointer;
+
+overflow:hidden;
+
+transition:.4s;
+}
+
+.card::before{
+content:"";
+position:absolute;
+left:-120%;
+top:0;
+width:100%;
+height:100%;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.15),
+transparent
+);
+
+transition:.8s;
+}
+
+.card:hover::before{
+left:120%;
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.03);
+box-shadow:0 0 40px gold;
+}
+
+.icon{
+font-size:70px;
+margin-bottom:15px;
+}
+
+.card h2{
+color:gold;
+margin-bottom:10px;
+}
+
+.card p{
+text-align:center;
+padding:0 20px;
+}
+
+/* PAGES */
+
+.page{
+display:none;
+min-height:100vh;
+padding:120px 25px;
+animation:fade .5s;
+}
+
+.page h1{
+color:gold;
+margin-bottom:20px;
+}
+
+.page p{
+font-size:18px;
+line-height:1.8;
+max-width:900px;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(30px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.back{
+background:gold;
+color:black;
+border:none;
+padding:12px 22px;
+border-radius:30px;
+cursor:pointer;
+font-weight:bold;
+margin-bottom:20px;
+}
+
+/* FEATURES */
+
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-top:30px;
+}
+
+.feature{
+padding:20px;
+border:1px solid gold;
+border-radius:15px;
+background:rgba(255,255,255,.05);
+transition:.3s;
+}
+
+.feature:hover{
+transform:scale(1.05);
+box-shadow:0 0 25px gold;
+}
+
+/* BOOKING FORM */
+
+.booking-container{
+max-width:700px;
+margin:40px auto;
+padding:25px;
+background:rgba(255,255,255,.07);
+border:2px solid gold;
+border-radius:20px;
+}
+
+.booking-container h2{
+text-align:center;
+color:gold;
+margin-bottom:20px;
+}
+
+.booking-container input,
+.booking-container select,
+.booking-container textarea{
+width:100%;
+padding:14px;
+margin-bottom:15px;
+border:none;
+border-radius:10px;
+font-size:16px;
+}
+
+.booking-container button{
+width:100%;
+padding:15px;
+border:none;
+border-radius:40px;
+background:linear-gradient(45deg,#8b0000,#ffd700);
+color:white;
+font-weight:bold;
+font-size:18px;
+cursor:pointer;
+}
+
+/* WHATSAPP */
+
+.whatsapp{
+position:fixed;
+right:20px;
+bottom:20px;
+background:#25D366;
+color:white;
+text-decoration:none;
+padding:18px 25px;
+border-radius:50px;
+font-weight:bold;
+z-index:2000;
+box-shadow:0 0 20px rgba(37,211,102,.7);
+animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+50%{
+transform:scale(1.08);
+}
+}
+
+/* PARTICLES */
+
+.particle{
+position:fixed;
+width:5px;
+height:5px;
+background:gold;
+border-radius:50%;
+pointer-events:none;
+z-index:-1;
+}
+
+@media(max-width:768px){
+
+.header{
+font-size:20px;
+}
+
+.card{
+width:90%;
+}
+
+.top-buttons{
+margin-top:95px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- CURTAIN -->
+
+<div id="curtain">
+<div class="left-curtain"></div>
+<div class="right-curtain"></div>
+</div>
+
+<!-- HEADER -->
+
+<div class="header">
+ASHIRVAAD MARRIAGE HALL
+</div>
+
+<!-- BUTTONS -->
+
+<div class="top-buttons">
+<button onclick="showPage('wedding')">💍 Weddings</button>
+<button onclick="showPage('anniversary')">❤️ Anniversaries</button>
+<button onclick="showPage('corporate')">🎧 DJ & Corporate</button>
+</div>
+
+<!-- HOME PAGE -->
+
+<div id="homePage">
+
+<div class="card" onclick="showPage('wedding')">
+<div class="icon">💍</div>
+<h2>WEDDINGS</h2>
+<p>Luxury wedding celebrations and royal arrangements.</p>
+</div>
+
+<div class="card" onclick="showPage('anniversary')">
+<div class="icon">❤️</div>
+<h2>ANNIVERSARIES</h2>
+<p>Celebrate beautiful milestones with elegance.</p>
+</div>
+
+<div class="card" onclick="showPage('corporate')">
+<div class="icon">🎧</div>
+<h2>DJ & CORPORATE</h2>
+<p>Professional events, conferences and DJ nights.</p>
+</div>
+
+</div>
+
+<!-- WEDDING -->
+
+<div class="page" id="wedding">
+
+<button class="back" onclick="goHome()">⬅ Back</button>
+
+<h1>💍 Royal Weddings</h1>
+
+<p>
+Create unforgettable wedding memories with premium decorations,
+beautiful stage setups, lighting and hospitality.
+</p>
+
+<div class="features">
+<div class="feature">🌹 Floral Decoration</div>
+<div class="feature">👑 Royal Stage</div>
+<div class="feature">🍽 Catering Service</div>
+<div class="feature">💡 Premium Lighting</div>
+</div>
+
+</div>
+
+<!-- ANNIVERSARY -->
+
+<div class="page" id="anniversary">
+
+<button class="back" onclick="goHome()">⬅ Back</button>
+
+<h1>❤️ Anniversary Celebrations</h1>
+
+<p>
+Celebrate your Silver Jubilee, Golden Jubilee and family milestones
+in a luxurious environment.
+</p>
+
+<div class="features">
+<div class="feature">🎂 Cake Setup</div>
+<div class="feature">🎈 Balloon Decoration</div>
+<div class="feature">📷 Photo Booth</div>
+<div class="feature">🍽 Dining Area</div>
+</div>
+
+</div>
+
+<!-- CORPORATE -->
+
+<div class="page" id="corporate">
+
+<button class="back" onclick="goHome()">⬅ Back</button>
+
+<h1>🎧 DJ & Corporate Events</h1>
+
+<p>
+Host conferences, award ceremonies, DJ nights and professional events.
+</p>
+
+<div class="features">
+<div class="feature">🎤 Sound System</div>
+<div class="feature">🏆 Awards Stage</div>
+<div class="feature">💼 Business Meetings</div>
+<div class="feature">📽 Projector Setup</div>
+</div>
+
+</div>
+
+<!-- BOOKING FORM -->
+
+<div class="booking-container">
+
+<h2>Book Your Event</h2>
+
+<input type="text" id="name" placeholder="Full Name">
+
+<input type="tel" id="phone" placeholder="Phone Number">
+
+<input type="date" id="eventDate">
+
+<select id="eventType">
+<option>Wedding</option>
+<option>Anniversary</option>
+<option>DJ & Corporate</option>
+</select>
+
+<textarea
+id="message"
+rows="4"
+placeholder="Event Details"></textarea>
+
+<button onclick="sendBooking()">
+BOOK NOW
+</button>
+
+</div>
+
+<!-- FLOATING WHATSAPP -->
+
+<a
+class="whatsapp"
+href="https://api.whatsapp.com/send?phone=919005282521"
+target="_blank">
+BOOK NOW
+</a>
+
+<script>
+
+function showPage(page){
+
+document.getElementById("homePage").style.display="none";
+
+document.getElementById("wedding").style.display="none";
+document.getElementById("anniversary").style.display="none";
+document.getElementById("corporate").style.display="none";
+
+document.getElementById(page).style.display="block";
+
+window.scrollTo(0,0);
+}
+
+function goHome(){
+
+document.getElementById("homePage").style.display="flex";
+
+document.getElementById("wedding").style.display="none";
+document.getElementById("anniversary").style.display="none";
+document.getElementById("corporate").style.display="none";
+
+window.scrollTo(0,0);
+}
+
+function sendBooking(){
+
+let name=document.getElementById("name").value;
+let phone=document.getElementById("phone").value;
+let date=document.getElementById("eventDate").value;
+let type=document.getElementById("eventType").value;
+let msg=document.getElementById("message").value;
+
+let text=
+`Booking Request
+
+Name: ${name}
+Phone: ${phone}
+Event: ${type}
+Date: ${date}
+
+Details:
+${msg}`;
+
+let url=
+`https://api.whatsapp.com/send?phone=919005282521&text=${encodeURIComponent(text)}`;
+
+window.open(url,"_blank");
+
+}
+
+/* GOLD PARTICLES */
+
+setInterval(()=>{
+
+let p=document.createElement("div");
+
+p.className="particle";
+
+p.style.left=Math.random()*100+"vw";
+p.style.top="100vh";
+
+document.body.appendChild(p);
+
+p.animate([
+{transform:"translateY(0)",opacity:1},
+{transform:"translateY(-120vh)",opacity:0}
+],
+{
+duration:6000
+});
+
+setTimeout(()=>{
+p.remove();
+},6000);
+
+},200);
+
+</script>
+
+</body>
+</html>
